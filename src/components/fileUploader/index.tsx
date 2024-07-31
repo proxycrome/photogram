@@ -7,6 +7,7 @@ import { FileEntry } from "@/types";
 interface IFileUploaderProps {
   fileEntry: FileEntry;
   onChange: (fileEntry: FileEntry) => void;
+  preview: boolean
 }
 
 const localeDefinitionOverride = {
@@ -35,6 +36,7 @@ const localeDefinitionOverride = {
 const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
   fileEntry,
   onChange,
+  preview,
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<OutputFileEntry[]>([]);
   const ctxProviderRef = useRef<InstanceType<UploadCtxProvider>>(null);
@@ -68,7 +70,7 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
     <div>
       <FileUploaderRegular
         imgOnly={true}
-        multiple={true}
+        multiple={preview}
         removeCopyright={true}
         confirmUpload={false}
         apiRef={ctxProviderRef}
@@ -79,7 +81,8 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
         sourceList="url, camera, dropbox, local"
       />
 
-      <div className="grid grid-cols-2 gap-4 mt-8">
+      {preview ? (
+        <div className="grid grid-cols-2 gap-4 mt-8">
         {fileEntry.files.map((file) => (
           <div className="relative" key={file.uuid}>
             <img
@@ -98,6 +101,7 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
           </div>
         ))}
       </div>
+      ) : <></>}
     </div>
   );
 };

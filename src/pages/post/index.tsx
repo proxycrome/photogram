@@ -22,7 +22,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
     photos: [],
     likes: 0,
     userlikes: [],
-    userId: null,
+    userId: null!,
     date: new Date(),
   });
 
@@ -38,8 +38,10 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
       // if(fileEntry.files.length > 0) {
         const newPost: Post = {
           ...post,
-          userId: user.uid || null,
-          photos: photoMeta
+          userId: user.uid!,
+          photos: photoMeta,
+          username: user.displayName!,
+          photoURL: user.photoURL!
         }
   
         console.log('The final Post is: ', newPost);
@@ -78,7 +80,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} />
+                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} preview={true} />
               </div>
               <Button className="mt-8 w-32" type="submit">
                 Post

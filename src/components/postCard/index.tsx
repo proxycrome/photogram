@@ -52,11 +52,11 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
         <CardTitle className="text-sm text-center flex justify-start items-center">
           <span className="mr-2">
             <img
-              src={image6}
+              src={data?.photoURL || image6}
               className="w-10 h-10 rounded-full border-2 border-slate-800 object-cover"
             />
           </span>
-          <span>Guest_user</span>
+          <span>{data.username ? data.username : 'Guest_user'}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
@@ -76,7 +76,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
         </div>
         <div className="w-full text-sm">{likesInfo.likes} likes</div>
         <div className="w-full text-sm">
-          <span>Guest_user</span>: {data.caption}
+          <span>{data.username ? data.username : "Guest_user"}</span>: {data.caption}
         </div>
       </CardFooter>
     </Card>
